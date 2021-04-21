@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	</script><script src="https://d3js.org/d3.v4.min.js"></script>
+	</script><script src="map_view.js"></script>
+	</script><script src="bar_chart.js"></script>
+	
+	<style type="text/css">
+
+		/* Legend Font Style */
+		body {
+			font: 11px sans-serif;
+			background-color: #ffffff;
+		}
+				
+		/* Legend Position Style */
+		.legend {
+			position:absolute;
+			left:20px;
+			top:30px;
+		}
+
+		.axis text {
+			font: 10px sans-serif;
+		}
+
+		.axis line, .axis path {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+		}
+
+		#mapview{
+			position: absolute;
+		}
+
+		#barchart{
+			position: absolute;
+			top: 350px;
+			border: #000;
+		}
+		
+
+	</style>
+	</head>
+	<body>
+		
+		
+		<div id="mapview"></div>
+		<div id="barchart"></div>
+
+
+		<script type="text/javascript">
+			drawMapView();
+			drawBarChart([1,1,2,2,3,3,3,4,5,6,6,7,8,9,9],['1','2','3','4','5','6','7','8','9']);
+		</script>
+	</body>
+</html>
