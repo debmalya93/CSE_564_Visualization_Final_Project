@@ -19,7 +19,13 @@ var drawBarChart = function(data,xLabel){
     categories.forEach(function(d){
         frequencies.push(mymap.get(d));
     });
-    var margin = { top: 40, right: 40, bottom: 60, left: 60 },
+
+
+    categories = ['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'
+                    ,'2014','2015','2016'];
+    frequencies = [20,30,50,23,45,67,34,67,89,66,44,67,87,77,20,10,34];
+
+    var margin = { top: 40, right: 40, bottom: 20, left: 60 },
         width = 700 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
     
@@ -58,13 +64,13 @@ var drawBarChart = function(data,xLabel){
         .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 55)
-        .attr("dy", "-5.5em")
+        .attr("dy", "-5em")
         .attr("x", -150)
         .attr("text-anchor", "middle")
         .attr("fill", "black")
         .attr("font-family", "Times New Roman")
         .attr("font-size", "18px")
-        .text("Player Counts");
+        .text("AQI");
 
     g.selectAll("rect")
         .data(categories)

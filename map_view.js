@@ -3,8 +3,11 @@ var drawMapView = function(){
     var width = 800;
     var height = 400;
 
-    var lowColor = '#f9f9f9'
-    var highColor = '#bc2a66'
+    //var lowColor = '#f9f9f9'
+    //  var highColor = '#bc2a66'
+
+    var lowColor = '#ADD8E6'
+    var highColor = '#00008B'
 
     // D3 Projection
     var projection = d3.geoAlbersUsa()
@@ -67,7 +70,25 @@ var drawMapView = function(){
             .attr("d", path)
             .style("stroke", "#fff")
             .style("stroke-width", "1")
-            .style("fill", function(d) { return ramp(d.properties.value) });
+            .style("fill", function(d) { return ramp(d.properties.value) })
+            .on('mouseover', function(d, i) {
+                var currentState = this;
+                var html = "";
+                html += "<span class=\"tooltip_key\">";
+                html += d.properties.name;
+                html += "</span>";
+                $("#tooltip-container").html(html);
+                $("#tooltip-container").show();
+                d3.select(this).style('fill-opacity', .2);
+                //console.log(d3.event.layerY);
+                d3.select("#tooltip-container")
+                .style("top", (d3.event.layerY + 15) + "px")
+                .style("left", (d3.event.layerX + 15) + "px");
+            })
+            .on('mouseout', function(d, i) {
+                d3.select(this).style('fill-opacity', 1);
+                $("#tooltip-container").hide();
+            });
             
                 // add a legend
                 var w = 140, h = 300;
