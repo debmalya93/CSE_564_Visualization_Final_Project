@@ -26,7 +26,7 @@ var drawMapView = function(){
     .attr("height", height);
 
     // Load in my states data!
-    d3.csv("statesdata.csv", function(data) {
+    d3.csv("static/data/statesdata.csv", function(data) {
         var dataArray = [];
         for (var d = 0; d < data.length; d++) {
             dataArray.push(parseFloat(data[d].value))
@@ -36,7 +36,7 @@ var drawMapView = function(){
         var ramp = d3.scaleLinear().domain([minVal,maxVal]).range([lowColor,highColor])
         
         // Load GeoJSON data and merge with states data
-        d3.json("us-states.json", function(json) {
+        d3.json("static/data/us-states.json", function(json) {
 
             // Loop through each state data value in the .csv file
             for (var i = 0; i < data.length; i++) {
