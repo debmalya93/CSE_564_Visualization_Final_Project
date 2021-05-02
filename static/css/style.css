@@ -1,0 +1,51 @@
+
+#mapview{
+    position: absolute;
+}
+
+#barchart{
+    position: absolute;
+    top: 330px;
+}
+
+#piechart{
+    position: absolute;
+    top:200px;
+    left: 650px;
+}
+
+#linechart{
+    position: absolute;
+    top:40px;
+    left: 1050px;
+}
+
+#pcpview{
+    position: absolute;
+    top:370px;
+    left: 900px;
+}
+
+#heading{
+    position: absolute;
+    background-color: darkblue;
+    color: white;
+    width: 1536px;
+    height: 40px;
+    text-align: center;
+    top: 0px;
+    left: 0px;
+}
+
+#tooltip-container {
+    position: absolute;
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+    border: 1px solid;
+    display: none;
+}
+
+.tooltip_key {
+      font-weight: bold;
+}

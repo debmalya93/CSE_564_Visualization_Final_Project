@@ -17,8 +17,8 @@ var drawPieChart = function(){
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
-    //var data = {a: 9, b: 20, c:30, d:8}
-    var data = [ 9,20,30,8];
+    var data = {SO2: 9, NO2: 20, CO:30, O3:8}
+    //var data = [9,20,30,8];
 
     // set the color scale
     var color = d3.scaleOrdinal()
@@ -30,17 +30,41 @@ var drawPieChart = function(){
     .value(function(d) {return d.value; })
     var data_ready = pie(d3.entries(data))
 
+    // shape helper to build arcs:
+    var arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
+
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     svg
     .selectAll('whatever')
     .data(data_ready)
     .enter()
     .append('path')
-    .attr('d', d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius))
+    .attr('d', arcGenerator)
     .attr('fill', function(d){ return(color(d.data.key)) })
     .attr("stroke", "black")
     .style("stroke-width", "2px")
     .style("opacity", 0.7)
+    .on('mouseover',selectPollutant)
+    .on('mouseout',selectPollutant2);
+
+    svg
+    .selectAll('mySlices')
+    .data(data_ready)
+    .enter()
+    .append('text')
+    .text(function(d){ return d.data.key})
+    .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+    .style("text-anchor", "middle")
+    .style("font-size", 17)
+
+
+    function selectPollutant(d, i){
+        d3.select(this).style('fill-opacity', .2);
+    }
+
+    function selectPollutant2(d, i){
+        d3.select(this).style('fill-opacity', 1);
+    }
 }

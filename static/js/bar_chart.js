@@ -25,9 +25,9 @@ var drawBarChart = function(data,xLabel){
                     ,'2014','2015','2016'];
     frequencies = [20,30,50,23,45,67,34,67,89,66,44,67,87,77,20,10,34];
 
-    var margin = { top: 40, right: 40, bottom: 20, left: 60 },
+    var margin = { top: 40, right: 40, bottom: 30, left: 60 },
         width = 700 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        height = 370 - margin.top - margin.bottom;
     
     var svg = d3.select('#barchart').append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -50,7 +50,7 @@ var drawBarChart = function(data,xLabel){
         .call(d3.axisBottom(xscale))
         .append("text")
         .attr("x", width/2)
-        .attr("y", height-310)
+        .attr("y", height-270)
         .attr("text-anchor", "middle")
         .attr("fill", "black")
         .attr("font-family", "Times New Roman")
@@ -81,6 +81,7 @@ var drawBarChart = function(data,xLabel){
         .attr("height", 0)
         .attr("width", xscale.bandwidth())
         .on("mouseover", showFreq)
+        .on("click",selectYear)
         .on("mouseout", revertBack)
         .transition()
         .ease(d3.easeLinear)
@@ -92,13 +93,13 @@ var drawBarChart = function(data,xLabel){
         .attr("height", function(d, i) { return height - yscale(frequencies[i]); });
 
     function showFreq(d, i){
-        d3.select(this).attr("fill", "darkred");
-        d3.select(this)
-            .transition()
-            .duration(250)
-            .attr('width', xscale.bandwidth() + 5)
-            .attr("y", function() { return yscale(frequencies[i]) - 10; })
-            .attr("height", function() { return height - yscale(frequencies[i]) + 10; });
+        //d3.select(this).attr("fill", "darkred");
+        //d3.select(this)
+        //    .transition()
+        //    .duration(250)
+        //    .attr('width', xscale.bandwidth() + 5)
+        //    .attr("y", function() { return yscale(frequencies[i]) - 10; })
+        //    .attr("height", function() { return height - yscale(frequencies[i]) + 10; });
 
         g.append('text')
             .attr('x', xscale(d))
@@ -115,17 +116,22 @@ var drawBarChart = function(data,xLabel){
     } 
 
     function revertBack(d, i){
-        d3.select(this).attr("fill", "darkblue");
-        d3.select(this)
-            .transition()
-            .duration(250)
-            .attr('width', xscale.bandwidth() - 5)
-            .attr("y", function() { return yscale(frequencies[i]); })
-            .attr("height", function() { return height - yscale(frequencies[i]); });
+        //d3.select(this).attr("fill", "darkblue");
+        //d3.select(this)
+        //    .transition()
+        //    .duration(250)
+        //    .attr('width', xscale.bandwidth())
+        //    .attr("y", function() { return yscale(frequencies[i]); })
+        //    .attr("height", function() { return height - yscale(frequencies[i]); });
 
         d3.selectAll('.freq')
             .remove();
         
     } 
+
+    function selectYear(d, i){
+        d3.selectAll('rect').attr("fill", "darkblue");
+        d3.select(this).attr("fill", "darkred");
+    }
 
 }
