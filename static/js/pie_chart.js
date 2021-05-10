@@ -1,4 +1,4 @@
-var drawPieChart = function(){
+var drawPieChart = function(data){
     // set the dimensions and margins of the graph
 
     var width = 350
@@ -17,7 +17,7 @@ var drawPieChart = function(){
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     // Create dummy data
-    var data = {SO2: 9, NO2: 20, CO:30, O3:8}
+    //var data = {SO2: 9, NO2: 20, CO:30, O3:8}
     //var data = [9,20,30,8];
 
     // set the color scale
@@ -41,13 +41,15 @@ var drawPieChart = function(){
     .data(data_ready)
     .enter()
     .append('path')
+    .attr('class','haha')
     .attr('d', arcGenerator)
     .attr('fill', function(d){ return(color(d.data.key)) })
     .attr("stroke", "black")
     .style("stroke-width", "2px")
     .style("opacity", 0.7)
-    .on('mouseover',selectPollutant)
-    .on('mouseout',selectPollutant2);
+    //.on('mouseover',selectPollutant)
+    //.on('mouseout',selectPollutant2)
+    .on("click",selectPollutant);
 
     svg
     .selectAll('mySlices')
@@ -61,10 +63,7 @@ var drawPieChart = function(){
 
 
     function selectPollutant(d, i){
-        d3.select(this).style('fill-opacity', .2);
-    }
-
-    function selectPollutant2(d, i){
-        d3.select(this).style('fill-opacity', 1);
+        d3.selectAll('.haha').style('fill-opacity', 1);
+        d3.select(this).style('fill-opacity', 0.2);
     }
 }

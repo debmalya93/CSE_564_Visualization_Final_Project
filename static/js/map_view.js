@@ -1,4 +1,4 @@
-var drawMapView = function(){
+var drawMapView = function(data){
     //Width and height of map
     var width = 800;
     var height = 400;
@@ -25,8 +25,14 @@ var drawMapView = function(){
     .attr("width", width)
     .attr("height", height);
 
+    //var data = [{state: "Alabama", value: "7.9"},
+    //            {state: "Texas", value: "8.1"}];
+
+    
+
     // Load in my states data!
-    d3.csv("static/data/statesdata.csv", function(data) {
+    //d3.csv("static/data/statesdata.csv", function(data) {
+        //console.log(data);
         var dataArray = [];
         for (var d = 0; d < data.length; d++) {
             dataArray.push(parseFloat(data[d].value))
@@ -79,15 +85,20 @@ var drawMapView = function(){
                 html += "</span>";
                 $("#tooltip-container").html(html);
                 $("#tooltip-container").show();
-                d3.select(this).style('fill-opacity', .2);
+                //d3.select(this).style('fill-opacity', .2);
                 //console.log(d3.event.layerY);
                 d3.select("#tooltip-container")
                 .style("top", (d3.event.layerY + 15) + "px")
                 .style("left", (d3.event.layerX + 15) + "px");
             })
             .on('mouseout', function(d, i) {
-                d3.select(this).style('fill-opacity', 1);
+                //d3.select(this).style('fill-opacity', 1);
                 $("#tooltip-container").hide();
+            })
+            .on('click',function(d,i){
+                d3.select(this).style('fill-opacity', .2);
+                //console.log(d.properties.name);
+                updateLineChart(d.properties.name);
             });
             
                 // add a legend
@@ -135,5 +146,5 @@ var drawMapView = function(){
                     .attr("transform", "translate(41,10)")
                     .call(yAxis)
         });
-    });
+    //});
 }

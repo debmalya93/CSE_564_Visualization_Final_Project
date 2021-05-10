@@ -1,5 +1,5 @@
-var drawBarChart = function(data,xLabel){
-    let mymap = new Map();
+var drawBarChart = function(data){
+    /*let mymap = new Map();
     var temp;
     data.forEach(function(d){
         temp = mymap.get(d)
@@ -18,12 +18,13 @@ var drawBarChart = function(data,xLabel){
     categories.sort();
     categories.forEach(function(d){
         frequencies.push(mymap.get(d));
-    });
+    });*/
 
-
+    var categories = [];
+    var frequencies = [];
     categories = ['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013'
                     ,'2014','2015','2016'];
-    frequencies = [20,30,50,23,45,67,34,67,89,66,44,67,87,77,20,10,34];
+    frequencies = data;
 
     var margin = { top: 40, right: 40, bottom: 30, left: 60 },
         width = 700 - margin.left - margin.right,
@@ -55,7 +56,7 @@ var drawBarChart = function(data,xLabel){
         .attr("fill", "black")
         .attr("font-family", "Times New Roman")
         .attr("font-size", "18px")
-        .text(xLabel);
+        .text('Year');
 
     g.append("g")
         .attr("transform", "translate(0, 0)")
@@ -132,6 +133,8 @@ var drawBarChart = function(data,xLabel){
     function selectYear(d, i){
         d3.selectAll('rect').attr("fill", "darkblue");
         d3.select(this).attr("fill", "darkred");
+        updatePieChart(d);
     }
+
 
 }
