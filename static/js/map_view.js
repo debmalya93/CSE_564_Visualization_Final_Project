@@ -52,6 +52,7 @@ var drawMapView = function(data){
 
             // Grab data value 
             var dataValue = data[i].value;
+            console.log(dataValue);
 
                 // Find the corresponding state inside the GeoJSON
                 for (var j = 0; j < json.features.length; j++) {
@@ -97,8 +98,8 @@ var drawMapView = function(data){
             })
             .on('click',function(d,i){
                 d3.select(this).style('fill-opacity', .2);
-                //console.log(d.properties.name);
-                updateLineChart(d.properties.name);
+                updateSelectedStates(d.properties.name);
+                updateLineChart();
             });
             
                 // add a legend

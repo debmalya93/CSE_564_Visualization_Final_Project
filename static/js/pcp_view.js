@@ -91,15 +91,15 @@ var drawParallelPlot = function(){
         .data(data)
         .enter().append("path")
         .attr("d", path)
-        .style("stroke",function(d,i){
-            if(d['kcluster'] == 0){
-                return "blue";
-            }else if(d['kcluster'] == 1){
-                return "red";
-            }else{
-                return "yellow";
-            }
-        })
+        //.style("stroke",function(d,i){
+        //    if(d['kcluster'] == 0){
+        //        return "blue";
+        //    }else if(d['kcluster'] == 1){
+        //        return "red";
+        //    }else{
+        //        return "yellow";
+        //    }
+        //})
 
 
         // Add a group element for each dimension.

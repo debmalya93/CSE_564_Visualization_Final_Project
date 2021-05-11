@@ -76,7 +76,12 @@ var drawBarChart = function(data){
     g.selectAll("rect")
         .data(categories)
         .enter().append("rect")
-        .attr("fill","darkblue" )
+        .attr("fill",function(d){
+            if(d==2016)
+                return "darkred";
+            else
+                return "darkblue";
+        } )
         .attr("x", function(d) { return xscale(d); })
         .attr("y", height)
         .attr("height", 0)
@@ -133,7 +138,9 @@ var drawBarChart = function(data){
     function selectYear(d, i){
         d3.selectAll('rect').attr("fill", "darkblue");
         d3.select(this).attr("fill", "darkred");
-        updatePieChart(d);
+        document.getElementById("selectedYear").innerHTML = d;
+        updatePieChart();
+        updateMapView();
     }
 
 

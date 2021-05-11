@@ -10,7 +10,7 @@ import sys
 
 app = Flask(__name__)
 
-df = pd.read_csv('year22.csv')
+df = pd.read_csv('nonil.csv')
 arr_df = []
 
 @app.route('/')
@@ -36,23 +36,25 @@ def get_overall_aqi():
     })
 
 
-@app.route('/getMapData')
-def get_map_view():
+@app.route('/getMapData/<year>/<pollutant>')
+def get_map_view(year, pollutant):
     global df
-    gg_df = []
     grouped = df.groupby(df.Year)
     start, end = 0, 17
-    for i in range(end):
-      gg_df.append(grouped.get_group(2000+i))
+    gg_df = grouped.get_group(int(year))
     co = []
     #state_names = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", "Connecticut", "District ", "of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
     state_names = ["Arizona", "California", "Colorado"]
+    #state_names = list(set(df['State'])).sort()
+    #print(state_names)
     states = []
+    #so = []
     for i in state_names:
-        states.append(gg_df[0][gg_df[0]['State'] == i])
+        states.append(gg_df[gg_df['State'] == i])
     for i in range(len(states)):
-        co.append({"state": state_names[i] , "value" : states[i]['CO AQI'].mean()})
-    
+        co.append({"state": state_names[i] , "value" : states[i][pollutant+' AQI'].mean()})
+        #so.append({"state": state_names[i] , "value" : states[i][pollutant+' AQI'].sum()})
+    #print(so)
     return jsonify({
         "co" : co
     })
@@ -80,7 +82,9 @@ def get_pie_view(year):
 def get_line_view(aqi,states):
     global df
     start, end = 0, 17
-    state_names = ["Arizona", "California", "Colorado"]
+    #state_names = ["Arizona", "California", "Colorado"]
+    state_names = states.split('-')
+    print(state_names)
     pollution = []
     for s in state_names:
       line_df = df[df["State"]==s]
