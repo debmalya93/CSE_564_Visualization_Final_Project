@@ -100,6 +100,7 @@ var drawMapView = function(data){
                 updateSelectedStates(d.properties.name);
                 updateLineChart();
                 updateLineChartCustom();
+                updatePcpChart();
             });
             
                 // add a legend

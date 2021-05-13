@@ -1,57 +1,17 @@
 var paraPlot = function(data){
   
-     var mf = ['District Of Columbia',
-      'North Carolina',
-      'Maryland',
-      'Colorado',
-      'Minnesota',
-      'Kansas',
-      'Alaska',
-      'New Hampshire',
-      'South Carolina',
-      'Iowa',
-      'Illinois',
-      'Texas',
-      'Oregon',
-      'North Dakota',
-      'Missouri',
-      'Maine',
-      'Country Of Mexico',
-      'New York',
-      'Wyoming',
-      'Georgia',
-      'Indiana',
-      'Arizona',
-      'Ohio',
-      'Connecticut',
-      'Rhode Island',
-      'Delaware',
-      'New Jersey',
-      'Arkansas',
-      'Pennsylvania',
-      'Nevada',
-      'Kentucky',
-      'New Mexico',
-      'Washington',
-      'Virginia',
-      'Hawaii',
-      'Michigan',
-      'California',
-      'Utah',
-      'Alabama',
-      'Florida',
-      'Tennessee',
-      'Oklahoma',
-      'South Dakota',
-      'Louisiana',
-      'Massachusetts',
-      'Wisconsin',
-      'Idaho']
-  
+     var mf = [];
+     var cl_list = ['B']*data.length;
+    for(var i=0;i<data.length;i++){
+      mf.push(data[i].City);
+      // cl_list.push(data[i].Code);
+    }
+    console.log(cl_list)
+    console.log(mf)
     var margin = {top: 20, right: 20, bottom: 20, left: 100},
       width = 400,
       height = 270;
-  var cl_list = ["B"]*data.length;
+  
   
   var x,
       dimensions,
@@ -73,17 +33,17 @@ var paraPlot = function(data){
       // }));
   
       dimensions = d3.keys(data[0]).filter(function (key) {
-                  y["State"] = d3.scaleBand()
+                  y["City"] = d3.scaleBand()
                              .domain(mf)
                              .range([height, 0]);
-                  if (key !== "State") {
+                  if (key !== "City" && key !== "Code") {
                       y[key] = d3.scaleLinear()
                           .domain(d3.extent(data, function (d) { return +d[key]; }))
                           .range([height, 0]);
                       return key;
                   };
               });
-      dimensions.unshift("State")
+      dimensions.unshift("City")
       console.log(dimensions);
   
       x = d3.scalePoint()

@@ -114,15 +114,16 @@ def get_line_custom(state):
 
 
 
-@app.route('/getPCP/')
-def get_pcp_view():
+@app.route('/getPCP/<state>')
+def get_pcp_view(state):
     global df
+    # state_names = states.split('-')
     cities = []
-    for i in set(df['State']):
-      sf = df[df['State']==i]
-      #for city in set(sf['City']):
-      obj = {"NO2":int(sf['NO2 AQI'].mean()), "SO2":int(sf['SO2 AQI'].mean()), "CO":int(sf['CO AQI'].mean()), "O3":int(sf['O3 AQI'].mean()), "State": i }
-      cities.append(obj)
+    # for i in state_names:
+    sf = df[df['State']==state]
+    for city in set(sf['City']):
+        obj = {"NO2":int(sf[sf['City']==city]['NO2 AQI'].mean()), "SO2":int(sf[sf['City']==city]['SO2 AQI'].mean()), "CO":int(sf[sf['City']==city]['CO AQI'].mean()), "O3":int(sf[sf['City']==city]['O3 AQI'].mean()), "City": city, "Code": int(sf['State Code'].mean())  }
+        cities.append(obj)
     print("Len", len(cities))
 
     return jsonify({

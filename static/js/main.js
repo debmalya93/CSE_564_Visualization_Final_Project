@@ -18,8 +18,7 @@ get_data('/getLine/SO2/California','line');
 
 get_data('/getLineCustom/California','linecustom');
 
-get_data('/getPCP','pcp');
-//paraPlot();
+get_data('/getPCP/California','pcp');
 
 function get_data(url,plot) {
 	$.ajax({
@@ -48,7 +47,6 @@ function get_data(url,plot) {
             drawLineChartCustom(result.combine);
         }
         if(plot == 'pcp'){
-            //console.log(result);
             paraPlot(result.cities);
         }
 	  },
@@ -64,6 +62,12 @@ var updatePieChart = function(){
     var year = document.getElementById("selectedYear").innerHTML;
     document.getElementById("piechart_text").innerHTML = "Pollutants Distribution in "+year;
     get_data('/getPieView/'+year,'pie');
+}
+
+var updatePcpChart = function(){
+    document.getElementById("pcpview").innerHTML = "";
+    var state = document.getElementById("selectedState").innerHTML
+    get_data('/getPCP/'+state,'pcp');
 }
 
 var updateSelectedStates = function(state){
