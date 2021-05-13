@@ -8,7 +8,8 @@
 	<script src="{{ url_for('static', filename = 'js/bar_chart.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/pie_chart.js') }}"></script>
 	<script src="{{ url_for('static', filename = 'js/line_chart.js') }}"></script>
-	<script src="{{ url_for('static', filename = 'js/pcp_view2.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/line_chart_custom.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'js/pcp_view.js') }}"></script>
 	
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
@@ -38,8 +39,26 @@
 			shape-rendering: crispEdges;
 		}
 
+		#mapview_text{
+			top:670px;
+			left:360px;
+    		position: absolute;
+			font-weight: bold;
+		}
 		
-		
+		#barchart_text{
+			top:50px;
+			left:200px;
+    		position: absolute;
+			font-weight: bold;
+		}
+
+		#customline_text{
+			top:690px;
+			left:750px;
+    		position: absolute;
+			font-weight: bold;
+		}
 		
 
 	</style>
@@ -53,12 +72,19 @@
 		<div id="barchart"></div>
 		<div id="piechart"></div>
 		<div id="linechart"></div>
+		<div id="linechartcustom"></div>
 		<div id="pcpview"></div>
+
+
+		<span id="mapview_text"></span>
+		<span id="barchart_text">Pollution over 16 years</span>
+		<span id="customline_text">Population and Death Count</span>
 
 		<div id="tooltip-container"></div>
 		<div id="selectedPollutant" style="display: none;"></div>
 		<div id="selectedYear" style="display: none;"></div>
-		<div id="selecteStates" style="display: none;"></div>
+		<div id="selectedStates" style="display: none;"></div>
+		<div id="selectedState" style="display: none;"></div>
 	</body>
 	<script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
 </html>

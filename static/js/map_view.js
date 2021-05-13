@@ -12,7 +12,7 @@ var drawMapView = function(data){
     // D3 Projection
     var projection = d3.geoAlbersUsa()
     //.translate([width / 2, height / 2]) // translate to center of screen
-    .translate([400, 200]) // translate to center of screen
+    .translate([350, 200]) // translate to center of screen
     .scale([700]); // scale things down so see entire US
 
     // Define path generator
@@ -52,7 +52,6 @@ var drawMapView = function(data){
 
             // Grab data value 
             var dataValue = data[i].value;
-            console.log(dataValue);
 
                 // Find the corresponding state inside the GeoJSON
                 for (var j = 0; j < json.features.length; j++) {
@@ -89,7 +88,7 @@ var drawMapView = function(data){
                 //d3.select(this).style('fill-opacity', .2);
                 //console.log(d3.event.layerY);
                 d3.select("#tooltip-container")
-                .style("top", (d3.event.layerY + 15) + "px")
+                .style("top", (d3.event.layerY + 260) + "px")
                 .style("left", (d3.event.layerX + 15) + "px");
             })
             .on('mouseout', function(d, i) {
@@ -100,10 +99,12 @@ var drawMapView = function(data){
                 d3.select(this).style('fill-opacity', .2);
                 updateSelectedStates(d.properties.name);
                 updateLineChart();
+                updateLineChartCustom();
             });
             
                 // add a legend
-                var w = 140, h = 300;
+                //var w = 140, h = 300;
+                var w = 100, h = 300;
 
                 var key = d3.select("#mapview")
                     .append("svg")
@@ -131,7 +132,8 @@ var drawMapView = function(data){
                     .attr("stop-opacity", 1);
 
                 key.append("rect")
-                    .attr("width", w - 100)
+                    //.attr("width", w - 100)
+                    .attr("width", w - 60)
                     .attr("height", h)
                     .style("fill", "url(#gradient)")
                     .attr("transform", "translate(0,10)");

@@ -1,6 +1,8 @@
-var drawParallelPlot = function(){
 
-    var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+
+var drawParallelPlot = function(data){
+
+    var margin = { top: 40, right: 40, bottom: 100, left: 100 },
         width = 460 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
     
@@ -13,12 +15,17 @@ var drawParallelPlot = function(){
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
+            var k = [{'AQI': 47.127272727272725, 'Year': 2000},
+            {'AQI': 41.486784140969164, 'Year': 2001},
+            {'AQI': 43.52713178294574, 'Year': 2002},
+            {'AQI': 41.89182389937107, 'Year': 2003} ]
 
-
-    d3.csv("static/FIFA_A.csv", function(data) {
+    //d3.csv("", function(data23) {
+        //'Age','International Reputation','Skill Moves','Finishing','HeadingAccuracy','ShortPassing','Dribbling','SprintSpeed','Jumping','Vision'
         
-        var dimensions = ['Skill Moves','Finishing','HeadingAccuracy','ShortPassing'];
-        
+        //'Weak Foot','Skill Moves','Finishing','HeadingAccuracy','ShortPassing','Dribbling','SprintSpeed','Agility','ShotPower','Stamina','Aggression','Vision'
+        var dimensions = ['O3','CO'];
+        //data = k;
         var y = {};
         var dragging = {};
         for (i in dimensions) {
@@ -91,15 +98,9 @@ var drawParallelPlot = function(){
         .data(data)
         .enter().append("path")
         .attr("d", path)
-        //.style("stroke",function(d,i){
-        //    if(d['kcluster'] == 0){
-        //        return "blue";
-        //    }else if(d['kcluster'] == 1){
-        //        return "red";
-        //    }else{
-        //        return "yellow";
-        //    }
-        //})
+        .style("stroke",function(d,i){
+            return "blue";
+        })
 
 
         // Add a group element for each dimension.
@@ -161,7 +162,7 @@ var drawParallelPlot = function(){
         .attr("x", -8)
         .attr("width", 16);
 
-    });
+    //});
 
    
     

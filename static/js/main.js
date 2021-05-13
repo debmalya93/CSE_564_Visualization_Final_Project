@@ -1,7 +1,9 @@
 
 document.getElementById("selectedPollutant").innerHTML = 'SO2';
 document.getElementById("selectedYear").innerHTML = 2016;
-document.getElementById("selecteStates").innerHTML = "Texas";
+document.getElementById("selectedStates").innerHTML = "California";
+
+document.getElementById("mapview_text").innerHTML = "SO2 concentration in 2016";
 //drawParallelPlot();
 
 get_data('/getOverallAqi','barchart');
@@ -10,7 +12,12 @@ get_data('/getMapData/2016/SO2','mapview');
 
 get_data('/getPieView/2016','pie');
 
-get_data('/getLine/SO2/Texas','line');
+get_data('/getLine/SO2/California','line');
+
+get_data('/getLineCustom/California','linecustom');
+
+get_data('/getPCP','pcp');
+//drawParallelPlot();
 
 function get_data(url,plot) {
 	$.ajax({
@@ -27,8 +34,6 @@ function get_data(url,plot) {
             drawBarChart(result.dd);
         }
         if(plot == 'mapview'){
-            console.log('fdsfdsf');
-            console.log(result);
             drawMapView(result.co);
         }
         if(plot == 'pie'){
@@ -36,6 +41,13 @@ function get_data(url,plot) {
         }
         if(plot == 'line'){
             drawLineChart(result.pollution);
+        }
+        if(plot == 'linecustom'){
+            drawLineChartCustom(result.combine);
+        }
+        if(plot == 'pcp'){
+            console.log(result);
+            drawParallelPlot(result.cities);
         }
 	  },
 	  error: function(result) {
@@ -52,7 +64,8 @@ var updatePieChart = function(){
 }
 
 var updateSelectedStates = function(state){
-    var states = document.getElementById("selecteStates").innerHTML;
+    document.getElementById("selectedState").innerHTML = state;
+    var states = document.getElementById("selectedStates").innerHTML;
     states = states + '-' + state;
     /*
     if(selectedStates.includes(state)){
@@ -62,12 +75,12 @@ var updateSelectedStates = function(state){
     }
     */ 
 
-    document.getElementById("selecteStates").innerHTML = states;
+    document.getElementById("selectedStates").innerHTML = states;
 }
 
 var updateLineChart = function(){
     document.getElementById("linechart").innerHTML = "";
-    var states = document.getElementById("selecteStates").innerHTML;
+    var states = document.getElementById("selectedStates").innerHTML;
     var pollutant = document.getElementById("selectedPollutant").innerHTML;
     get_data('/getLine/'+pollutant+'/'+states,'line');
 
@@ -77,5 +90,13 @@ var updateMapView = function(){
     document.getElementById("mapview").innerHTML = "";
     var pollutant = document.getElementById("selectedPollutant").innerHTML;
     var year = document.getElementById("selectedYear").innerHTML;
+    document.getElementById("mapview_text").innerHTML = pollutant+" concentration in "+year;
     get_data('/getMapData/'+year+'/'+pollutant,'mapview');
+}
+
+var updateLineChartCustom = function(){
+    document.getElementById("linechartcustom").innerHTML = "";
+    var state = document.getElementById("selectedState").innerHTML;
+    get_data('/getLineCustom/'+state,'linecustom');
+
 }

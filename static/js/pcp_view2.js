@@ -1,6 +1,6 @@
-var drawParallelPlot = function(cls,cl_list){
-    console.log(cl_list)
-  var data = cls;
+var drawParallelPlot = function(data){
+   // console.log(cl_list)
+  //var data = cls;
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = 460,
     height = 350 - margin.top - margin.bottom;
@@ -41,7 +41,8 @@ foreground = svg.append("g")
     .enter().append("path")
       .attr("d", line)
       .style("stroke", function(d, i) { 
-                return d.color = color(cl_list[i]); 
+                //return d.color = color(cl_list[i]); 
+                return d.color ='darkblue'; 
             });
 
 

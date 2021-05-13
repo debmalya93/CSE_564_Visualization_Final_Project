@@ -71,7 +71,7 @@ var drawPieChart = function(data){
         d3.selectAll('.haha').style('fill-opacity', 1);
         d3.select(this).style('fill-opacity', 0.2);
         document.getElementById("selectedPollutant").innerHTML = d.data.key;
-        document.getElementById("selecteStates").innerHTML = "Texas";
+        document.getElementById("selectedStates").innerHTML = "Texas";
         updateMapView();
         updateLineChart();
     }

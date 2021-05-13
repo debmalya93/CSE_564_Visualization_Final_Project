@@ -11,6 +11,7 @@ import sys
 app = Flask(__name__)
 
 df = pd.read_csv('nonil.csv')
+pf = pd.read_csv('population-deaths.csv')
 arr_df = []
 
 @app.route('/')
@@ -28,7 +29,7 @@ def get_overall_aqi():
     avg = []
     print(arr_df[0])
     for i in range(end):
-      avg.append(arr_df[i]['NO2 AQI'].mean() + arr_df[i]['O3 AQI'].mean() + arr_df[i]['SO2 AQI'].mean()+ arr_df[i]['CO AQI'].mean())
+      avg.append(int(arr_df[i]['NO2 AQI'].mean()) + int(arr_df[i]['O3 AQI'].mean()) + int(arr_df[i]['SO2 AQI'].mean())+ int(arr_df[i]['CO AQI'].mean()))
 
     #return render_template("index.html",avg = avg)
     return jsonify({
@@ -40,21 +41,18 @@ def get_overall_aqi():
 def get_map_view(year, pollutant):
     global df
     grouped = df.groupby(df.Year)
-    start, end = 0, 17
     gg_df = grouped.get_group(int(year))
     co = []
-    #state_names = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", "Connecticut", "District ", "of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
-    state_names = ["Arizona", "California", "Colorado"]
-    #state_names = list(set(df['State'])).sort()
-    #print(state_names)
+    state_names = list(set(df['State']))
+    state_names = [i for i in state_names if i]
+    print(len(state_names))
     states = []
-    #so = []
+    so = []
     for i in state_names:
         states.append(gg_df[gg_df['State'] == i])
     for i in range(len(states)):
-        co.append({"state": state_names[i] , "value" : states[i][pollutant+' AQI'].mean()})
-        #so.append({"state": state_names[i] , "value" : states[i][pollutant+' AQI'].sum()})
-    #print(so)
+        co.append({"state": state_names[i] , "value" : 0 if len(states[i][pollutant+' AQI']) == 0 else states[i][pollutant+' AQI'].mean()})
+        so.append({"state": state_names[i] , "value" : states[i][pollutant+' AQI'].sum()})
     return jsonify({
         "co" : co
     })
@@ -90,11 +88,45 @@ def get_line_view(aqi,states):
       line_df = df[df["State"]==s]
       each_state_pollution = []
       for i in range(end):
-        each_state_pollution.append({"Year": 2000+i, "AQI": line_df[line_df["Year"] == 2000+i][aqi+' AQI'].mean() })
+        each_state_pollution.append({"Year": 2000+i, "AQI":0 if len(line_df[line_df["Year"] == 2000+i][aqi+' AQI']) ==0 else line_df[line_df["Year"] == 2000+i][aqi+' AQI'].mean() })
       pollution.append(each_state_pollution)
 
     return jsonify({
         "pollution" : pollution
+    })
+
+@app.route('/getLineCustom/<state>')
+def get_line_custom(state):
+    global pf
+    state_df = pf[pf['Area']==state]
+    combine = []
+    each_state_death = []
+    each_state_population = []
+    for i in range(17):
+        each_state_death.append({"Year": 2000+i, "Death": int(state_df[state_df['Year'] == 2000+i]['DeathCount'].mean()) })
+        each_state_population.append({"Year": 2000+i, "Population": int(state_df[state_df['Year'] == 2000+i]['Population'].mean()) })
+    combine.append(each_state_population)
+    combine.append(each_state_death)
+
+    return jsonify({
+        "combine" : combine
+    })
+
+
+
+@app.route('/getPCP/')
+def get_pcp_view():
+    global df
+    cities = []
+    for i in set(df['State']):
+      sf = df[df['State']==i]
+      #for city in set(sf['City']):
+      obj = {"NO2":int(sf['NO2 AQI'].mean()), "SO2":int(sf['SO2 AQI'].mean()), "CO":int(sf['CO AQI'].mean()), "O3":int(sf['O3 AQI'].mean()), "State": i }
+      cities.append(obj)
+    print("Len", len(cities))
+
+    return jsonify({
+        "cities" : cities
     })
 
 if(__name__ == "__main__"):

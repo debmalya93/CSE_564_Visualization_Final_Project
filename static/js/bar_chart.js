@@ -26,9 +26,9 @@ var drawBarChart = function(data){
                     ,'2014','2015','2016'];
     frequencies = data;
 
-    var margin = { top: 40, right: 40, bottom: 30, left: 60 },
-        width = 700 - margin.left - margin.right,
-        height = 370 - margin.top - margin.bottom;
+    var margin = { top: 40, right: 40, bottom: 40, left: 60 },
+        width = 600 - margin.left - margin.right,
+        height = 320 - margin.top - margin.bottom;
     
     var svg = d3.select('#barchart').append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -42,21 +42,29 @@ var drawBarChart = function(data){
         .range([0, width]).padding(0.4);
 
     var yscale = d3.scaleLinear()
-        .domain([0, d3.max(frequencies)])
+        .domain([0, 100])
         .range([height, 0]);
 
     g.append("g")
         .attr("transform", "translate(0," + height + ")")
         .style('stroke-width', '2px')
         .call(d3.axisBottom(xscale))
-        .append("text")
-        .attr("x", width/2)
-        .attr("y", height-270)
-        .attr("text-anchor", "middle")
-        .attr("fill", "black")
-        .attr("font-family", "Times New Roman")
-        .attr("font-size", "18px")
-        .text('Year');
+
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)" );
+
+            g.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (height +39) + ")")
+            .style("text-anchor", "middle")
+            .attr("font-size", "15px")
+            .text("Year");
+
+        
 
     g.append("g")
         .attr("transform", "translate(0, 0)")
@@ -70,7 +78,7 @@ var drawBarChart = function(data){
         .attr("text-anchor", "middle")
         .attr("fill", "black")
         .attr("font-family", "Times New Roman")
-        .attr("font-size", "18px")
+        .attr("font-size", "15px")
         .text("AQI");
 
     g.selectAll("rect")
