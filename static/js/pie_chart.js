@@ -46,11 +46,10 @@ var drawPieChart = function(data){
     .attr('fill', function(d){ return(color(d.data.key)) })
     .attr("stroke", "black")
     .style("stroke-width", "2px")
-    .style("opacity", function(d){
-        if(d.data.key == 'SO2')
+    .style('fill-opacity',function(d){
+        if(d.data.key=='SO2'){
             return 0.2;
-        else
-            return 1;
+        }
     })
     //.on('mouseover',selectPollutant)
     //.on('mouseout',selectPollutant2)
@@ -71,7 +70,7 @@ var drawPieChart = function(data){
         d3.selectAll('.haha').style('fill-opacity', 1);
         d3.select(this).style('fill-opacity', 0.2);
         document.getElementById("selectedPollutant").innerHTML = d.data.key;
-        document.getElementById("selectedStates").innerHTML = "Texas";
+        document.getElementById("selectedStates").innerHTML = "California";
         updateMapView();
         updateLineChart();
     }

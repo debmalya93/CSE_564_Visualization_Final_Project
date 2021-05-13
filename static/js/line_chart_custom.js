@@ -1,7 +1,7 @@
 var drawLineChartCustom = function(linedata){
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 60, bottom: 30, left: 60},
+    var margin = {top: 10, right: 60, bottom: 40, left: 60},
     width = 460 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 
@@ -32,6 +32,14 @@ var drawLineChartCustom = function(linedata){
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)" );
 
+    svg.append("text")             
+    .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                            (height-2) + ")")
+    .style("text-anchor", "middle")
+    .attr("font-size", "15px")
+    .text("Year");
+
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -39,7 +47,17 @@ var drawLineChartCustom = function(linedata){
     //.domain([0, 30])
     .range([ height, 0 ]);
     svg.append("g")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y))
+    .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 55)
+        .attr("dy", "-2.5em")
+        .attr("x", -150)
+        .attr("text-anchor", "middle")
+        .attr("fill", "blue")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "15px")
+        .text("Population");
     
 
     var y2 = d3.scaleLinear()
@@ -49,8 +67,19 @@ var drawLineChartCustom = function(linedata){
 
     svg.append("g")
     .attr("transform", "translate("+width+", 0 )")
-    .call(d3.axisRight(y2));
+    .call(d3.axisRight(y2))
+    .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 55)
+        .attr("dy", "-4em")
+        .attr("x", -150)
+        .attr("text-anchor", "middle")
+        .attr("fill", "red")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "15px")
+        .text("Death Count");;
 
+    
 
     svg.append("path")
     .datum(linedata[0])
@@ -61,15 +90,31 @@ var drawLineChartCustom = function(linedata){
         .x(function(d) { return x(d.Year) })
         .y(function(d) { return y(d.Population) })
         );
+    //svg.append("text")
+    //.attr("transform", "translate(" + x(linedata[0][2].Year) + "," + y(linedata[0][2].Population) + ")")
+    //.attr("dy", ".35em")
+    //.attr("text-anchor", "start")
+    //.style("fill", "blue")
+    //.text("Population");
+    
+   
 
     svg.append("path")
     .datum(linedata[1])
     .attr("fill", "none")
     .attr("stroke", "steelblue")
     .attr("stroke-width", 1.5)
+    .style("stroke", "red")
     .attr("d", d3.line()
         .x(function(d) { return x(d.Year) })
         .y(function(d) { return y2(d.Death) })
         );
+
+    //svg.append("text")
+    //.attr("transform", "translate(" + x(linedata[1][5].Year) + "," + y2(linedata[1][5].Death) + ")")
+    //.attr("dy", ".35em")
+    //.attr("text-anchor", "start")
+    //.style("fill", "red")
+    //.text("Death Count");
     
 }

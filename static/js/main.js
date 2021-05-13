@@ -4,6 +4,8 @@ document.getElementById("selectedYear").innerHTML = 2016;
 document.getElementById("selectedStates").innerHTML = "California";
 
 document.getElementById("mapview_text").innerHTML = "SO2 concentration in 2016";
+document.getElementById("line_text").innerHTML = "SO2 concentration over the years";
+document.getElementById("piechart_text").innerHTML = "Pollutants Distribution in 2016";
 //drawParallelPlot();
 
 get_data('/getOverallAqi','barchart');
@@ -16,8 +18,8 @@ get_data('/getLine/SO2/California','line');
 
 get_data('/getLineCustom/California','linecustom');
 
-get_data('/getPCP','pcp');
-//drawParallelPlot();
+//get_data('/getPCP','pcp');
+paraPlot();
 
 function get_data(url,plot) {
 	$.ajax({
@@ -60,28 +62,26 @@ function get_data(url,plot) {
 var updatePieChart = function(){
     document.getElementById("piechart").innerHTML = "";
     var year = document.getElementById("selectedYear").innerHTML;
+    document.getElementById("piechart_text").innerHTML = "Pollutants Distribution in "+year;
     get_data('/getPieView/'+year,'pie');
 }
 
 var updateSelectedStates = function(state){
     document.getElementById("selectedState").innerHTML = state;
-    var states = document.getElementById("selectedStates").innerHTML;
-    states = states + '-' + state;
-    /*
+    var selectedStates = document.getElementById("selectedStates").innerHTML;
     if(selectedStates.includes(state)){
         selectedStates = selectedStates.replace('-'+state,'')
     }else{
         selectedStates = selectedStates + '-' + state;
     }
-    */ 
-
-    document.getElementById("selectedStates").innerHTML = states;
+    document.getElementById("selectedStates").innerHTML = selectedStates;
 }
 
 var updateLineChart = function(){
     document.getElementById("linechart").innerHTML = "";
     var states = document.getElementById("selectedStates").innerHTML;
     var pollutant = document.getElementById("selectedPollutant").innerHTML;
+    document.getElementById("line_text").innerHTML = pollutant+" concentration over the years";
     get_data('/getLine/'+pollutant+'/'+states,'line');
 
 }

@@ -1,5 +1,17 @@
 var drawLineChart = function(linedata){
+    var states = document.getElementById("selectedStates").innerHTML.split("-");
+    //console.log(states);
 
+    var max=0;
+    for(var i=0;i<linedata.length;i++){
+        for(var j=0;j<linedata[0].length;j++){
+            max = Math.max(max,linedata[i][j].AQI);
+        }
+    }
+
+    var colors = ['#69B3A2','#FF005C','#FF8882','#150E56','#556B2F','#8FBC8F','#2F4F4F',
+            '#00008B','#B8860B','#006400','#BDB76B','#556B2F','#8FBC8F','#2F4F4F'];
+    //console.log(max);
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 460 - margin.left - margin.right,
@@ -48,22 +60,39 @@ var drawLineChart = function(linedata){
     // Add Y axis
     var y = d3.scaleLinear()
     //.domain([0, d3.max(data, function(d) { return +d.AQI; })])
-    .domain([0, 30])
+    .domain([0, max+10])
     .range([ height, 0 ]);
     svg.append("g")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y))
+    .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 55)
+        .attr("dy", "-5em")
+        .attr("x", -150)
+        .attr("text-anchor", "middle")
+        .attr("fill", "black")
+        .attr("font-family", "Times New Roman")
+        .attr("font-size", "15px")
+        .text("AQI");
 
     for(var i=0;i<linedata.length;i++){
         // Add the line
         svg.append("path")
         .datum(linedata[i])
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", colors[i])
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
             .x(function(d) { return x(d.Year) })
             .y(function(d) { return y(d.AQI) })
             );
+
+        svg.append("text")
+        .attr("transform", "translate(" + x(linedata[i][2].Year) + "," + y(linedata[i][2].AQI) + ")")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "start")
+        .style("fill", colors[i])
+        .text(states[i]);
     }
     
 
