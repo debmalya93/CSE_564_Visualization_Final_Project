@@ -1,51 +1,4 @@
-var paraPlot = function(){
-    var data = [{'CO': 11, 'NO2': 30, 'O3': 33, 'SO2': 12, 'State': 'District Of Columbia'},
-     {'CO': 5, 'NO2': 22, 'O3': 44, 'SO2': 8, 'State': 'North Carolina'},
-     {'CO': 4, 'NO2': 19, 'O3': 36, 'SO2': 7, 'State': 'Maryland'},
-     {'CO': 7, 'NO2': 35, 'O3': 34, 'SO2': 10, 'State': 'Colorado'},
-     {'CO': 3, 'NO2': 15, 'O3': 33, 'SO2': 1, 'State': 'Minnesota'},
-     {'CO': 6, 'NO2': 21, 'O3': 34, 'SO2': 9, 'State': 'Kansas'},
-     {'CO': 6, 'NO2': 19, 'O3': 17, 'SO2': 14, 'State': 'Alaska'},
-     {'CO': 5, 'NO2': 14, 'O3': 34, 'SO2': 7, 'State': 'New Hampshire'},
-     {'CO': 1, 'NO2': 4, 'O3': 37, 'SO2': 4, 'State': 'South Carolina'},
-     {'CO': 3, 'NO2': 14, 'O3': 33, 'SO2': 1, 'State': 'Iowa'},
-     {'CO': 6, 'NO2': 28, 'O3': 31, 'SO2': 13, 'State': 'Illinois'},
-     {'CO': 4, 'NO2': 23, 'O3': 35, 'SO2': 4, 'State': 'Texas'},
-     {'CO': 5, 'NO2': 17, 'O3': 25, 'SO2': 2, 'State': 'Oregon'},
-     {'CO': 2, 'NO2': 12, 'O3': 29, 'SO2': 0, 'State': 'North Dakota'},
-     {'CO': 7, 'NO2': 29, 'O3': 41, 'SO2': 18, 'State': 'Missouri'},
-     {'CO': 3, 'NO2': 11, 'O3': 28, 'SO2': 2, 'State': 'Maine'},
-     {'CO': 17, 'NO2': 37, 'O3': 31, 'SO2': 6, 'State': 'Country Of Mexico'},
-     {'CO': 5, 'NO2': 30, 'O3': 31, 'SO2': 14, 'State': 'New York'},
-     {'CO': 1, 'NO2': 9, 'O3': 41, 'SO2': 1, 'State': 'Wyoming'},
-     {'CO': 5, 'NO2': 24, 'O3': 34, 'SO2': 1, 'State': 'Georgia'},
-     {'CO': 5, 'NO2': 24, 'O3': 41, 'SO2': 14, 'State': 'Indiana'},
-     {'CO': 9, 'NO2': 36, 'O3': 39, 'SO2': 4, 'State': 'Arizona'},
-     {'CO': 4, 'NO2': 22, 'O3': 31, 'SO2': 15, 'State': 'Ohio'},
-     {'CO': 3, 'NO2': 18, 'O3': 37, 'SO2': 3, 'State': 'Connecticut'},
-     {'CO': 3, 'NO2': 14, 'O3': 37, 'SO2': 1, 'State': 'Rhode Island'},
-     {'CO': 3, 'NO2': 21, 'O3': 35, 'SO2': 2, 'State': 'Delaware'},
-     {'CO': 6, 'NO2': 31, 'O3': 34, 'SO2': 11, 'State': 'New Jersey'},
-     {'CO': 5, 'NO2': 21, 'O3': 35, 'SO2': 2, 'State': 'Arkansas'},
-     {'CO': 3, 'NO2': 23, 'O3': 39, 'SO2': 15, 'State': 'Pennsylvania'},
-     {'CO': 3, 'NO2': 23, 'O3': 40, 'SO2': 1, 'State': 'Nevada'},
-     {'CO': 3, 'NO2': 25, 'O3': 42, 'SO2': 18, 'State': 'Kentucky'},
-     {'CO': 3, 'NO2': 24, 'O3': 41, 'SO2': 1, 'State': 'New Mexico'},
-     {'CO': 2, 'NO2': 21, 'O3': 27, 'SO2': 1, 'State': 'Washington'},
-     {'CO': 5, 'NO2': 20, 'O3': 38, 'SO2': 9, 'State': 'Virginia'},
-     {'CO': 4, 'NO2': 8, 'O3': 26, 'SO2': 2, 'State': 'Hawaii'},
-     {'CO': 6, 'NO2': 31, 'O3': 40, 'SO2': 17, 'State': 'Michigan'},
-     {'CO': 7, 'NO2': 24, 'O3': 35, 'SO2': 3, 'State': 'California'},
-     {'CO': 5, 'NO2': 23, 'O3': 42, 'SO2': 1, 'State': 'Utah'},
-     {'CO': 3, 'NO2': 21, 'O3': 36, 'SO2': 7, 'State': 'Alabama'},
-     {'CO': 5, 'NO2': 16, 'O3': 35, 'SO2': 2, 'State': 'Florida'},
-     {'CO': 4, 'NO2': 3, 'O3': 45, 'SO2': 2, 'State': 'Tennessee'},
-     {'CO': 2, 'NO2': 14, 'O3': 41, 'SO2': 3, 'State': 'Oklahoma'},
-     {'CO': 2, 'NO2': 11, 'O3': 34, 'SO2': 0, 'State': 'South Dakota'},
-     {'CO': 6, 'NO2': 26, 'O3': 34, 'SO2': 11, 'State': 'Louisiana'},
-     {'CO': 5, 'NO2': 29, 'O3': 25, 'SO2': 7, 'State': 'Massachusetts'},
-     {'CO': 5, 'NO2': 26, 'O3': 27, 'SO2': 8, 'State': 'Wisconsin'},
-     {'CO': 2, 'NO2': 23, 'O3': 34, 'SO2': 0, 'State': 'Idaho'}];
+var paraPlot = function(data){
   
      var mf = ['District Of Columbia',
       'North Carolina',
@@ -95,9 +48,9 @@ var paraPlot = function(){
       'Wisconsin',
       'Idaho']
   
-    var margin = {top: 100, right: 100, bottom: 100, left: 100},
-      width = 480,
-      height = 270 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 20, bottom: 20, left: 100},
+      width = 400,
+      height = 270;
   var cl_list = ["B"]*data.length;
   
   var x,
@@ -107,7 +60,7 @@ var paraPlot = function(){
   
   
   
-  var svg = d3.select("svg")
+  var svg = d3.select("#pcpview").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")

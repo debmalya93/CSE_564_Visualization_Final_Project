@@ -39,6 +39,48 @@
 			shape-rendering: crispEdges;
 		}
 
+
+		.extent {
+		  fill: #000;
+		  fill-opacity: .125;
+		  stroke: #fff;
+		}
+
+		.background path {
+		fill: none;
+		stroke: #ddd;
+		shape-rendering: crispEdges;
+		}
+
+		.foreground path {
+		fill: none;
+		stroke: steelblue;
+		}
+
+		.brush .extent {
+		fill-opacity: .3;
+		stroke: #fff;
+		shape-rendering: crispEdges;
+		}
+
+		.axis line,
+		.axis path {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+		}
+
+		.axis text {
+		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+		cursor: move;
+		}
+		
+		#mysvg{
+		  display: block;
+		  margin: auto;
+		}
+
+
 		
 		
 		#barchart_text{
@@ -89,9 +131,7 @@
 		<div id="piechart"></div>
 		<div id="linechart"></div>
 		<div id="linechartcustom"></div>
-		<div id="pcpview" class="svgContainer">
-			<svg id="mysvg" width="500" height="500"></svg>
-		  </div>
+		<div id="pcpview"></div>
 
 
 		<span id="mapview_text"></span>

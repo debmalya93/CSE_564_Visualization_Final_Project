@@ -18,8 +18,8 @@ get_data('/getLine/SO2/California','line');
 
 get_data('/getLineCustom/California','linecustom');
 
-//get_data('/getPCP','pcp');
-paraPlot();
+get_data('/getPCP','pcp');
+//paraPlot();
 
 function get_data(url,plot) {
 	$.ajax({
@@ -48,8 +48,8 @@ function get_data(url,plot) {
             drawLineChartCustom(result.combine);
         }
         if(plot == 'pcp'){
-            console.log(result);
-            drawParallelPlot(result.cities);
+            //console.log(result);
+            paraPlot(result.cities);
         }
 	  },
 	  error: function(result) {

@@ -84,6 +84,7 @@ var drawBarChart = function(data){
     g.selectAll("rect")
         .data(categories)
         .enter().append("rect")
+        .attr('class','haha2')//added class
         .attr("fill",function(d){
             if(d==2016)
                 return "darkred";
@@ -144,7 +145,7 @@ var drawBarChart = function(data){
     } 
 
     function selectYear(d, i){
-        d3.selectAll('rect').attr("fill", "darkblue");
+        d3.selectAll('.haha2').attr("fill", "darkblue");
         d3.select(this).attr("fill", "darkred");
         document.getElementById("selectedYear").innerHTML = d;
         updatePieChart();
