@@ -114,13 +114,14 @@ def get_line_custom(state):
 
 
 
-@app.route('/getPCP/<state>')
-def get_pcp_view(state):
+@app.route('/getPCP/<state>/<year>')
+def get_pcp_view(state, year):
     global df
+    yf = df[df['Year']==int(year)]
     # state_names = states.split('-')
     cities = []
     # for i in state_names:
-    sf = df[df['State']==state]
+    sf = yf[yf['State']==state]
     for city in set(sf['City']):
         obj = {"NO2":int(sf[sf['City']==city]['NO2 AQI'].mean()), "SO2":int(sf[sf['City']==city]['SO2 AQI'].mean()), "CO":int(sf[sf['City']==city]['CO AQI'].mean()), "O3":int(sf[sf['City']==city]['O3 AQI'].mean()), "City": city, "Code": int(sf['State Code'].mean())  }
         cities.append(obj)

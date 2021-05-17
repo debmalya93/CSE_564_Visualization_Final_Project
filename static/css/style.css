@@ -11,24 +11,25 @@
 
 #piechart{
     position: absolute;
-    left: 600px;
+    top:10px;
+    left: 650px;
 }
 
 #pcpview{
     position: absolute;
     top:40px;
-    left: 980px;
+    left: 1000px;
 }
 
 #linechartcustom{
     position: absolute;
-    top: 330px;
-    left: 610px;
+    top: 370px;
+    left: 620px;
 }
 
 #linechart{
     position: absolute;
-    top:330px;
+    top:360px;
     left: 1050px;
 }
 

@@ -17,10 +17,15 @@
 	<style type="text/css">
 
 		/* Legend Font Style */
-		body {
+		/* body {
 			font: 11px sans-serif;
 			background-color: #ffffff;
+		} */
+		body {
+			font: 11px sans-serif;
+			background-color: #fffffd;
 		}
+
 				
 		/* Legend Position Style */
 		.legend {
@@ -84,7 +89,7 @@
 		
 		
 		#barchart_text{
-			top:320px;
+			top:325px;
 			left:200px;
     		position: absolute;
 			font-weight: bold;
@@ -99,7 +104,7 @@
 		}
 		#customline_text{
 			top:690px;
-			left:725px;
+			left:705px;
     		position: absolute;
 			font-weight: bold;
 		}
@@ -112,8 +117,15 @@
 		}
 
 		#piechart_text{
-			top:320px;
-			left:750px;
+			top:325px;
+			left:725px;
+    		position: absolute;
+			font-weight: bold;
+		}
+
+		#pcp_text{
+			top:325px;
+			left:1125px;
     		position: absolute;
 			font-weight: bold;
 		}
@@ -136,9 +148,10 @@
 
 		<span id="mapview_text"></span>
 		<span id="barchart_text">Pollution over the years</span>
-		<span id="customline_text">Population and Death Count over the years</span>
+		<span id="customline_text"></span>
 		<span id="line_text"></span>
 		<span id="piechart_text"></span>
+		<span id="pcp_text"></span>
 
 		<div id="tooltip-container"></div>
 		<div id="selectedPollutant" style="display: none;"></div>

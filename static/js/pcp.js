@@ -9,8 +9,8 @@ var paraPlot = function(data){
     console.log(cl_list)
     console.log(mf)
     var margin = {top: 20, right: 20, bottom: 20, left: 100},
-      width = 400,
-      height = 270;
+      width = 380,
+      height = 250;
   
   
   var x,

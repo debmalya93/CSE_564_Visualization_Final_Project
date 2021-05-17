@@ -44,14 +44,21 @@ var drawPieChart = function(data){
     .append('path')
     .attr('class','haha')
     .attr('d', arcGenerator)
-    .attr('fill', function(d){ return(color(d.data.key)) })
+    .attr('fill', function(d){ 
+        if(d.data.key=='CO'){
+            return "#F1cA89";
+        }else{
+            return(color(d.data.key));
+        }
+        
+    })
     .attr("stroke", "black")
     .style("stroke-width", "2px")
-    .style('fill-opacity',function(d){
-        if(d.data.key=='SO2'){
+    /*.style('fill-opacity',function(d){
+        if(d.data.key=='CO'){
             return 0;
         }
-    })
+    })*/
     //.on('mouseover',selectPollutant)
     //.on('mouseout',selectPollutant2)
     .on("click",selectPollutant);
@@ -68,11 +75,17 @@ var drawPieChart = function(data){
 
 
     function selectPollutant(d, i){
-        d3.selectAll('.haha').style('fill-opacity', 1);
-        d3.select(this).style('fill-opacity', 0);
+        //d3.selectAll('.haha').style('fill-opacity', 1);
+        //d3.select(this).style('fill-opacity', 0);
+        d3.selectAll('.haha').style('fill',function(d){
+            return(color(d.data.key));
+        });
+        d3.select(this).style('fill', "#F1cA89");
         document.getElementById("selectedPollutant").innerHTML = d.data.key;
-        document.getElementById("selectedStates").innerHTML = "California";
+        //document.getElementById("selectedStates").innerHTML = "California";
+        //document.getElementById("selectedState").innerHTML = "California";
         updateMapView();
         updateLineChart();
+        //updateLineChartCustom();
     }
 }

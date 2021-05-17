@@ -87,7 +87,7 @@ var drawBarChart = function(data){
         .attr('class','haha2')//added class
         .attr("fill",function(d){
             if(d==2016)
-                return "darkred";
+                return "#F1cA89";
             else
                 return "darkblue";
         } )
@@ -146,10 +146,17 @@ var drawBarChart = function(data){
 
     function selectYear(d, i){
         d3.selectAll('.haha2').attr("fill", "darkblue");
-        d3.select(this).attr("fill", "darkred");
+        d3.select(this).attr("fill", "#F1cA89");
         document.getElementById("selectedYear").innerHTML = d;
+        document.getElementById("selectedState").innerHTML = "California";
+        document.getElementById("selectedPollutant").innerHTML = 'CO';
+        document.getElementById("selectedStates").innerHTML = "California";
+
         updatePieChart();
         updateMapView();
+        updateLineChart();
+        updateLineChartCustom();
+        updatePcpChart();
     }
 
 

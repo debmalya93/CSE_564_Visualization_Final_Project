@@ -76,7 +76,19 @@ var drawMapView = function(data){
             .attr("d", path)
             .style("stroke", "#fff")
             .style("stroke-width", "1")
-            .style("fill", function(d) { return ramp(d.properties.value) })
+            .style("fill", function(d) {
+                if(d.properties.name=='California'){
+                    return "#F1cA89";
+                }else{
+                    return ramp(d.properties.value); 
+                } 
+                
+            })
+            /*.style('fill-opacity',function(d){
+                if(d.properties.name=='California'){
+                    return 0.2;
+                }
+            })*/
             .on('mouseover', function(d, i) {
                 var currentState = this;
                 var html = "";
@@ -96,7 +108,15 @@ var drawMapView = function(data){
                 $("#tooltip-container").hide();
             })
             .on('click',function(d,i){
-                d3.select(this).style('fill-opacity', .2);
+                var rr = document.getElementById("selectedStates").innerHTML;
+                //console.log("lol--"+rr.includes(d.properties.name));
+                if(rr.includes(d.properties.name)){
+                    d3.select(this).style('fill', ramp(d.properties.value));
+                    //d3.select(this).style('fill', "#F1cA89");
+                }else{
+                    d3.select(this).style('fill', "#F1cA89");
+                    //d3.select(this).style('fill', ramp(d.properties.value));
+                }
                 updateSelectedStates(d.properties.name);
                 updateLineChart();
                 updateLineChartCustom();
